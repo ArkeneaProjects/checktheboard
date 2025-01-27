@@ -99,8 +99,7 @@ const message = {
   logout_reason:
   {
     suspend: "You are suspended by the admin"
-  },
- 
+  }, 
   myprofile: {
     first_name: "Please enter first name",
     last_name: "Please enter last name",
@@ -108,7 +107,6 @@ const message = {
     valid_email: "Please enter a valid email",
     phone: "Please enter phone",
   },
-  
 };
 
 module.exports = message;
