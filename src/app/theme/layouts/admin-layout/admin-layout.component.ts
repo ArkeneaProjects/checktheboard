@@ -5,6 +5,7 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout'; 
 import { MatDialog } from '@angular/material/dialog';
 import { AlertModalComponent } from '../../common/alert-modal/alert-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-layout', 
@@ -17,7 +18,7 @@ export class AdminLayoutComponent {
 
   private _mobileQueryListener: () => void;
 
-  constructor() { 
+  constructor(public router: Router) { 
     const changeDetectorRef = inject(ChangeDetectorRef);
     const media = inject(MediaMatcher);
 
@@ -43,5 +44,12 @@ export class AdminLayoutComponent {
         noBtnMessage: 'Sign out cancelled!' 
       }
     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
+      if(result){
+        this.router.navigate(['/login/']);
+        localStorage.removeItem('user')
+      }
+    })
   }
 }

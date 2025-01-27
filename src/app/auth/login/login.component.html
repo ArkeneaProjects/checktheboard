@@ -7,36 +7,38 @@
         </div>  
         <div class="col-12"> 
           <mat-stepper  #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <form [formGroup]="firstFormGroup"> 
+            <mat-step [stepControl]="loginForm">
+              <form [formGroup]="loginForm"> 
                 <div class="col-12">
                   <h6 class="font-bold font-18">Sign In</h6>
                   <p class="mb-3">Please login to your account</p>
                 </div>
                 <div class="form-group mb-3">
                   <label class="form-label">Email address</label>
-                  <input type="email" class="form-control" placeholder="Please enter email" value="johndoe@gmail.com">
-                  <div class="error" *ngIf="">Please enter valid email</div>
+                  <input type="email" class="form-control" placeholder="Please enter email" formControlName="email">
+                  <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">{{ validationMessages.required('an email address') }}</div>
+                  <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('email')">
+                    {{ validationMessages.validEmail }}
+                </div >
                 </div>
                 <div class="form-group mb-3">
                   <label class="form-label">Password</label>
                   <div class="position-relative w-100 password--field">
                     <input [type]="hide() ? 'password' : 'text'" type="password" class="form-control"
-                      placeholder="Please enter password" value="Arkenea@123">
+                      placeholder="Please enter password" formControlName="password">
                     <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
                       [attr.aria-pressed]="hide()">
                       <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                   </div>
-                  <div class="error" *ngIf="">Please enter valid password</div>
+                  <div class="error" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">{{ validationMessages.required('an password') }}</div>
                 </div>
                 <div class="form-group d-flex align-items-center justify-content-between mb-3 remember--me">
-                  <mat-checkbox class="">Remember me</mat-checkbox>
-                  <a href="#" class="clr--009BD6 text-decoration-none" [routerLink]="['/forgot-password']">Forgot
-                    password?</a>
+                  <mat-checkbox class="" formControlName="rememberMe">Remember me</mat-checkbox>
+                  <a href="#" class="clr--009BD6 text-decoration-none" [routerLink]="['/forgot-password']">Forgot password?</a>
                 </div>
                 <div class="col-12">
-                  <button mat-raised-button color="primary" class="w-100  mb-4" matStepperNext>Sign In</button> 
+                  <button mat-raised-button color="primary" (click)="login()" class="w-100  mb-4" matStepperNext>Sign In</button> 
                 </div>
                 <div class="col-12"> 
                   <div class="form-group mb-3 text-center">
@@ -45,65 +47,8 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup" >
-              <form [formGroup]="secondFormGroup">
-                <div class="col-12">
-                  <h6 class="font-bold font-18  ">Sign In</h6> 
-                </div>
-                <div class="form-group mb-3">
-                  <label class="form-label">Phone Number</label>
-                  <input type="number" class="form-control" placeholder="Please enter Phone Number" value="">
-                  <div class="error" *ngIf="">Please enter valid</div>
-                </div>
-                <div class="col-12">
-                    <p class="note--mar">We will send a 6 digit verification code to your mobile number</p>
-                </div>
-                <div class="col-12">
-                  <button mat-raised-button color="primary" class="w-100 mt-2 mb-3" matStepperNext>Next</button> 
-                   
-                </div>
-                <div class="col-12 mb-3 d-flex align-items-center justify-content-between">
-                  <button mat-button class="text-primary" matStepperPrevious>
-                      <mat-icon>arrow_back</mat-icon>
-                      Back
-                  </button>
-                  <p class="mb-0">Not registered yet? <a class="link text-decoration-none"
-                          [routerLink]="['/sign-up']">Create an account</a></p>
-              </div>
-                 
-              </form>
-            </mat-step>
-            <mat-step> 
-              <div class="col-12">
-                <h6 class="font-bold font-18">Sign In</h6> 
-                <p class="font-18 mb-3">We sent a verification code to <span class="font-bold"> +1 987 654 3210 </span></p>
-              </div>
-              <div class="col-12">
-                <!-- With Event Binding -->
-                <label class="font-medium font-16 mb-2">Enter OTP</label> 
-                <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input> 
-                <a class="d-flex justify-content-end link text-decoration-none text-end mt-3 resend--veri">Resend Verification Code</a>
-                </div>
-              <div class="col-12">
-                <button mat-raised-button color="primary" class="w-100 mt-2 mb-3" [routerLink]="['/super-admin/manage-hospitals']">Verify and Submit</button> 
-                 
-              </div>
-              <div class="col-12 mb-3 d-flex align-items-center justify-content-between">
-                <button mat-button class="text-primary" matStepperPrevious>
-                    <mat-icon>arrow_back</mat-icon>
-                    Back
-                </button>
-                <p class="mb-0">Not registered yet? <a class="link text-decoration-none"
-                        [routerLink]="['/sign-up']">Create an account </a></p>
-
-                         
-            </div>
-            </mat-step>
           </mat-stepper>
-          
         </div>
-
-
       </div>
     </div>
   </div>
