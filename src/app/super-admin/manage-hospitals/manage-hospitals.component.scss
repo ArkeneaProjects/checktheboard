@@ -1,0 +1,27 @@
+.Active{
+    color: #00CF18;
+}
+.Deactive{
+    color: #FF1500;
+}
+ 
+.mh--table{
+    ::ng-deep{
+        .mat-mdc-table{
+            thead{
+                tr{
+                    th{
+                        &:nth-child(1){width: auto;}
+                        &:nth-child(2){width: 15%;}
+                        &:nth-child(3){width: 15%;}
+                        &:nth-child(4){width: 15%;}
+                        &:nth-child(5){width: 15%;}
+                        &:nth-child(6){width: 100px;}
+                        &:nth-child(7){width: 100px;}
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,430 @@
+@font-face { 
+    font-family: 'Helvetica-regular'; 
+    src: url('https://thoratprashant.github.io/ctb/assets/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype'); 
+    font-weight: normal; 
+    font-style: normal; 
+} 
+@font-face { 
+    font-family: 'Helvetica-light'; 
+    src: url('https://thoratprashant.github.io/ctb/assets/fonts/HelveticaNowDisplay-Light.ttf') format('truetype'); 
+    font-weight: light; 
+    font-style: normal; 
+} 
+@font-face { 
+    font-family: 'Helvetica-medium'; 
+    src: url('https://thoratprashant.github.io/ctb/assets/fonts/HelveticaNowDisplay-Medium.ttf') format('truetype'); 
+    font-weight: 700; 
+    font-style: normal; 
+} 
+@font-face { 
+    font-family: 'Helvetica-bold'; 
+    src: url('https://thoratprashant.github.io/ctb/assets/fonts/HelveticaNowDisplay-Bold.ttf') format('truetype'); 
+    font-weight: bold; 
+    font-style: normal; 
+} 
+
+
+body { 
+    font-family: 'Helvetica-regular', sans-serif !important; 
+    .font-light{font-family: 'Helvetica-light' !important;}
+    .font-medium{font-family: 'Helvetica-medium' !important;}
+    .font-bold{font-family: 'Helvetica-bold' !important;} 
+
+    .font-12{font-size: 12px !important;}
+    .font-14{font-size: 14px !important;}
+    .font-15{font-size: 15px !important;}
+    .font-16{font-size: 16px !important;}
+    .font-18{font-size: 18px !important;}
+    .font-20{font-size: 20px !important;}
+
+    .clr--001f2b{color: #001F2B !important;}
+    .clr--009BD6, .text-primary{color: #009BD6 !important;}
+    .text-secondary {color: #919AA3 !important;}
+
+    .link{color: #009bd6; cursor: pointer;}
+    .cursor-pointer {cursor: pointer !important;}
+    .error{
+        font-size: 13px;
+        color: #f82f2f;
+    }
+    .active, .accepted{color: #00CF18;}
+    .expired, .rejected{color: #FF1500;} 
+    .pending{color: #FFD900;}
+   
+
+    /* For Webkit browsers (Chrome, Safari, etc.) */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    } 
+    /* For Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    } 
+    input[type='password'] { 
+        letter-spacing: 0.125em; 
+    }  
+
+
+    .form-group label {
+        font-size: 16px;
+        font-family: 'Helvetica-medium' !important;
+        margin-bottom: 5px;
+        color: #001F2B;
+        width: 100%;
+    }
+    .form-control{
+        border: 1px solid #919AA3;
+        font-size: 16px;
+        padding: 11px 15px;
+        border-radius: 8px;
+        &:focus{
+            box-shadow: none;
+            border-color: #009bd6;
+        }
+    }
+    .search--field{
+        position: relative;
+        .form-control{
+            padding-right: 50px;
+        }
+        .search--btn{
+            position: absolute;
+            right: 0;
+            top: 6px;
+            .mat-icon{
+                font-size: 24px;
+                width: 24px;
+                height: 24px;
+                color: #009bd6;
+            }
+        }
+    }
+
+    ::placeholder {
+        color: #919AA3 !important;
+        opacity: 1; /* Firefox */
+      }
+      
+      ::-ms-input-placeholder { /* Edge 12 -18 */
+        color: #919AA3 !important;
+      }
+
+    // Angular Material
+    .mat-mdc-form-field-error,
+    .mat-mdc-select-value,
+    .mat-mdc-menu-content, .mat-mdc-menu-content .mat-mdc-menu-item .mat-mdc-menu-item-text,
+    .mat-stepper-vertical, 
+    .mat-stepper-horizontal{
+        font-family: 'Helvetica-regular' !important;   
+    }
+
+    .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background, 
+    .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+    .mdc-checkbox__native-control:focus:focus:checked~.mdc-checkbox__background, 
+    .mdc-checkbox__native-control:focus:focus:indeterminate~.mdc-checkbox__background {
+        border-color: #009bd6;
+        background-color: #009bd6;
+    }
+    
+    .mat-mdc-checkbox{
+        .mdc-form-field{
+            .mdc-label{
+                margin-bottom: 0;
+                color: #919AA3;
+                font-family: 'Helvetica-light' !important;               
+            }
+        }
+    }
+
+    .mdc-button{
+        font-family: 'Helvetica-medium' !important;
+        font-size: 16px;
+        padding: 24px 5px;
+        text-align: center;
+        box-shadow: none;
+        border-radius: 4px;
+        letter-spacing: 1px;
+        &.btn-md{
+            padding: 20px 11px;
+        }
+        &.mat-primary{
+            background-color: #009BD6;
+            color: #fff; 
+        }
+        &.mat-warn{
+            background-color: #FFAEAE; 
+        }
+        &.mat-mdc-button-disabled{
+            background: #DFDFDF !important;
+            color: #fff !important;
+        }
+        &.icon--btn{
+            min-width: unset;
+            .mat-icon{
+                font-size: 22px;
+                width: 22px;
+                height: 22px;
+            }
+        }
+        &.back--btn{
+            width: 40px;
+            height: 40px;
+            min-width: unset;
+            padding: 0;
+            .mat-icon{
+                font-size: 24px;
+                height: 24px;
+                width: 24px;
+            }
+        }
+    }
+
+    // Angular Material Table
+    .cust--mat--table{  
+        border-radius: 8px; 
+        .mat-mdc-table{ 
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.20);
+            thead{
+                tr{
+                    height: auto;
+                    th{
+                        font-family: 'Helvetica-bold' !important;
+                        padding: 10px 16px;
+                        background: #FBFBFB; 
+                        border-color: #F0F0F2;
+                        &:first-child{
+                            border-top-left-radius:8px
+                        }
+                        &:last-child{
+                            border-top-right-radius:8px
+                        }
+                        .mat-sort-header-container{
+                            .mat-sort-header-content{
+                                text-align: left;
+                                color: #001F2B;
+                            }
+                        }
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    height: auto;
+                    td{
+                        font-family: 'Helvetica-regular' !important;   
+                        padding: 10px 16px; 
+                        border: 0;
+                        color: #001F2B;
+                        &:first-child{
+                            border-bottom-left-radius:8px
+                        }
+                        &:last-child{
+                            border-bottom-right-radius:8px
+                        }
+                        .icon--btn{
+                            height: auto;
+                        }
+                    }
+                    &.mat-mdc-no-data-row{
+                        td{
+                            height: 100px;
+                            background: #ddebf0;
+                            text-align: center;
+                            font-family: 'Helvetica-bold' !important;   
+                        }
+                    }
+                    &.mat-mdc-row:nth-child(even) { 
+                        background: #FBFBFB;
+                    }
+                }
+            }
+        }
+        mat-paginator{
+            margin-top: 10px;
+            font-family: 'Helvetica-regular' !important;   
+            .mat-mdc-form-field-infix{
+                padding: 5px 0 !important;
+            }
+            .mat-mdc-form-field-subscript-wrapper{
+                display: none;
+            }
+        }
+    }
+
+ 
+    // Outline form field's
+    .mat-form-field-appearance-outline{ 
+        .mat-mdc-text-field-wrapper{
+            .mat-mdc-form-field-flex{
+                .mat-mdc-form-field-infix{
+                    padding: 12px 0;
+                    min-height: unset;
+                }
+                .mat-mdc-floating-label {
+                    top: 23px;
+                    font-family: 'Helvetica-regular', sans-serif !important;
+                    color: #919AA3;
+                }
+            }
+        }
+        .mat-mdc-form-field-subscript-wrapper{
+            display: flex;
+            margin-bottom: 10px;
+            .mat-mdc-form-field-error-wrapper{
+                position: relative;
+                padding: 0;
+            }
+        }
+        &.mat-form-field-disabled{
+            opacity: 0.7;
+            .mat-mdc-notch-piece {
+                border-color: #ddd;
+            }
+            .mdc-text-field--disabled{
+                background: #FBFBFB;
+            }
+        }
+    } 
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{
+        --mat-mdc-form-field-label-transform: translateY(calc(calc(1.75px + var(--mat-form-field-container-height) / 2)* -1)) scale(var(--mat-mdc-form-field-floating-label-scale, 0.75)); 
+        color: #001F2B !important;
+    }
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece{
+        border-color: #919AA3;
+    }
+    .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mdc-text-field__input{
+        color: #001F2B;
+        font-family: 'Helvetica-regular', sans-serif !important;
+    }
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled).mdc-text-field--focused .mat-mdc-notch-piece{
+        border-color: #009BD6;
+    }
+
+    // Select box (DD)
+    .mat-mdc-select-panel{
+        padding:0 !important;
+        .mat-mdc-option {
+            color: #001F2B;
+            font-family: 'Helvetica-regular', sans-serif !important;
+            &.mdc-list-item--selected{
+                .mdc-list-item__primary-text{
+                    color: #009BD6;
+                } 
+            }
+            .mat-pseudo-checkbox{
+                &::after{
+                    color: #009BD6;
+                }
+            }
+        }
+    }
+
+    // Mat Card 
+    .mat-mdc-card{
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.20);
+        background-color: #fff;
+        border-radius: 8px;
+        .mat-mdc-card-header{
+            padding: 24px 16px 0;
+            .mat-mdc-card-header-text{ 
+                .mat-mdc-card-title{
+                    font-family: 'Helvetica-bold', sans-serif !important;
+                    font-size: 36px;
+                    margin-bottom: 14px;
+                }
+                .mat-mdc-card-subtitle{
+                    font-family: 'Helvetica-regular', sans-serif !important;
+                    color: #A6A3B8;
+                }
+            }
+        }
+    }
+ 
+    // Toggle button  
+    .mat-mdc-slide-toggle.mat-accent {
+        --mdc-switch-selected-focus-state-layer-color: #009BD6;
+        --mdc-switch-selected-handle-color: #009BD6;
+        --mdc-switch-selected-hover-state-layer-color: #009BD6;
+        --mdc-switch-selected-pressed-state-layer-color: #009BD6;
+        --mdc-switch-selected-focus-handle-color: #009BD6;
+        --mdc-switch-selected-hover-handle-color: #009BD6;
+        --mdc-switch-selected-pressed-handle-color: #009BD6;
+        --mdc-switch-selected-focus-track-color: #009BD6;
+        --mdc-switch-selected-hover-track-color: #009BD6;
+        --mdc-switch-selected-pressed-track-color: #009BD6;
+        --mdc-switch-selected-track-color: #009BD6;
+    }
+   .mat-accent {
+        --mdc-circular-progress-active-indicator-color: #009BD6;
+    } 
+
+    // Table sort arrow is always visible    
+    .mat-sort-header-arrow { 
+        opacity: 1 !important;  
+        visibility: visible !important; 
+    }
+
+    .password--field{
+        .mdc-icon-button{
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 9px;
+            .mat-icon {
+                color: #919AA3;
+            }
+        }
+       
+    }
+
+    // Tab Structure
+    .mat-mdc-tab-group{
+        width: 100%;
+        .mat-mdc-tab-header{
+            .mat-mdc-tab-label-container{
+                .mat-mdc-tab-list{
+                    .mat-mdc-tab-labels{
+                        border-bottom: 1px solid #f1f1f1;
+                        .mdc-tab{
+                            flex-grow: 0;
+                            &.mdc-tab-indicator--active{
+                                .mdc-tab__text-label{
+                                    color: #009BD6;
+                                }
+                            }
+                            .mdc-tab__text-label{
+                                font-family: 'Helvetica-medium' !important; 
+                                font-size: 16px;
+                                color: #919AA3;
+                                letter-spacing: normal;
+                            }
+                            .mdc-tab-indicator__content{
+                                border-color:#009BD6 ;
+                            }
+                        }
+                       
+                    }
+                }
+            }
+        }
+    }
+
+    // Popup > Modal
+    .custom-alert-container{
+        max-width: 582px !important;
+        min-width: 582px !important;
+        .modal--wrapper{
+            padding: 20px;
+        }
+    }
+}
+
+  /* iPads (portrait) */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+    .cust--mat--table{ 
+        overflow-x: auto;
+    }
+}

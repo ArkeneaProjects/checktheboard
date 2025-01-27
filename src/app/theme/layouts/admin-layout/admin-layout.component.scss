@@ -1,0 +1,135 @@
+.admin--container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    &.layout-is-mobile {
+        .admin--toolbar {
+            position: fixed; 
+            z-index: 2; 
+          }
+    }
+    .admin--toolbar { 
+        box-shadow: -1px 5px 10px rgba(0, 0, 0, 0.04);
+        background-color: #fff;
+        margin-bottom: 2px;
+        .round--profile{
+            border-radius: 100px;
+            height: 44px;
+            width: 44px;
+            border: 1px solid #ddd;
+            overflow: hidden;
+        }
+        .logo--box{
+            width: 260px; 
+            height: 65px;
+            border-right: 1px solid #ddd;
+        }
+    }
+    .admin--sidenav--container{ 
+        background: #fff;
+        .mat-sidenav{
+            width: 260px;
+            background-color: #e6f8ff;
+            ::ng-deep{
+                .mat-drawer-inner-container{
+                    .mat-mdc-nav-list{
+                        padding: 0;
+                        .mat-mdc-list-item{
+                            border-radius: 0;
+                            border-left: 6px solid transparent;
+                            height: auto;
+                            padding: 14px 10px;
+                            &.active-link{
+                                background-color: #009bd6;
+                                border-left-color: #002e40;
+                                .mdc-list-item__content{
+                                    .mat-mdc-list-item-unscoped-content {
+                                        color: #fff;
+                                    }
+                                }
+                            }
+                            &:focus{
+                                background-color: #009bd6;
+                                opacity: 1;
+                                --mat-outlined-button-focus-state-layer-opacity:unset !important;
+                            }
+                            .mdc-list-item__content{
+                                .mat-mdc-list-item-unscoped-content {
+                                    display: flex;
+                                    align-items: center;
+                                    font-family: 'Helvetica-bold' !important;
+                                    color: #001F2B;
+                                    .mat-icon{
+                                        margin-right: 16px;
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .mat-drawer-container{
+        .mat-drawer-content{
+            padding: 20px 15px 15px 20px;
+        }
+    }
+
+  }
+   
+  ::ng-deep{
+    .profile--menus{
+        &.mat-mdc-menu-panel{
+            min-width: 215px;
+            .mat-mdc-menu-content{
+                padding: 0;
+                .user--info{
+                    padding: 10px 15px;
+                    border-bottom: 1px solid #DFDFDF;
+                }
+                .mat-mdc-menu-item{
+                    border-bottom: 1px solid #DFDFDF;
+                    &:last-child{
+                        border-bottom: none;
+                    }
+                }
+                .mat-mdc-menu-item-text{ 
+                    font-family: 'Helvetica-medium' !important;
+                    color: #001F2B !important;
+                }
+            }
+        } 
+        &.w-150{
+            &.mat-mdc-menu-panel{
+                min-width: 150px;
+            }
+        }
+    }
+  }
+   
+  .admin--sidenav--container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+  }
+  
+  .layout-is-mobile .admin--sidenav--container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+  }
+  
+
+  /* iPads (portrait) */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+    .admin--container .admin--sidenav--container .mat-sidenav { 
+        top: 64px !important;
+    }
+}
+  

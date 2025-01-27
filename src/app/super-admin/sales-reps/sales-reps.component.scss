@@ -1,0 +1,33 @@
+.asr--table{
+    ::ng-deep{
+        .mat-mdc-table{
+            thead{
+                tr{
+                    th{
+                        &:nth-child(1){width: 15%;}
+                        &:nth-child(2){width: 15%;}
+                        &:nth-child(3){width: auto;}
+                        &:nth-child(4){width: 150px;}
+                        &:nth-child(5){width: 180px;}
+                        &:nth-child(6){width: 170px;} 
+                    }
+                }
+            }
+            .icon--accepted{
+                color: #009BD6;
+                &.mat-mdc-button-disabled{
+                    background: transparent !important;
+                    color: #E1E1E1 !important;
+                }
+            }
+            .icon--rejected{
+                color: #FFAEAE;
+                &.mat-mdc-button-disabled{
+                    background: transparent !important;
+                    color: #E1E1E1 !important;
+                }
+            }
+        }
+    }
+}
+

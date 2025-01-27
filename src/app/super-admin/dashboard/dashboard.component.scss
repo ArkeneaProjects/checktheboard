@@ -1,0 +1,29 @@
+.dashboard--wrapper{
+    .dash--box{
+        border-radius: 6px;
+        border: 1px solid #E1E1E1;
+        background: #fff;
+        padding: 20px 16px;
+        .round--logo{
+            background-color: #e6f5fb;
+            width: 78px;
+            height: 78px; 
+            border-radius: 100px;
+            margin-right:15px ;
+            &.sales--logo{
+                background-color: #faf7ff;
+                .mat-icon{
+                    color: #C8AEFF;
+                }
+            }
+        }
+        .mat-icon{
+            width: 48px;
+            height: 48px;
+            font-size: 48px;
+        }
+        h1{
+            font-size: 36px;
+        }
+    }
+}

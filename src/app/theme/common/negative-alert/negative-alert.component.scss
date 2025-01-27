@@ -1,0 +1,17 @@
+.nega--alert--wrapper{
+    padding: 20px; 
+    .icon--outer{
+        width: 84px;
+        height: 84px;
+        background-color: #fff7f7;
+        border-radius: 100%;
+        ::ng-deep{
+            .mat-icon{
+                font-size: 64px;
+                width: 64px;
+                height: 64px;
+                color: #FFAEAE;
+            }
+        }
+    }
+}

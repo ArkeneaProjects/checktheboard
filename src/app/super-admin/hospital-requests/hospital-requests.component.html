@@ -1,0 +1,111 @@
+<div class="container-fluid clr--001f2b">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="font-18 font-bold mb-4 mt-1">Hospital Requests</h1>
+        </div>
+        <div class="col-12 d-flex align-items-center">
+            <div class="form-group search--field w-100"> 
+                <input type="text" class="form-control" placeholder="Search"  (keyup)="applyFilter($event)" #input> 
+                <button mat-button class="search--btn"> 
+                    <mat-icon class="m-0">search</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-between">
+            <h1 class="font-18 font-bold mb-4 mt-4">All Requests</h1>
+            <div class="d-flex align-items-center">
+                <button mat-button class="icon--btn"  [matMenuTriggerFor]="filterMenu"> 
+                    <mat-icon class="m-0 text-primary">filter_alt</mat-icon>
+                </button>
+                <mat-menu class="profile--menus w-150" #filterMenu="matMenu" xPosition="before"> 
+                  <button mat-menu-item class="font-bold">Accepted</button>
+                  <button mat-menu-item class="font-bold">Pending</button> 
+                  <button mat-menu-item class="font-bold">Rejected</button> 
+                </mat-menu>
+
+                <button mat-button class="icon--btn" [matMenuTriggerFor]="beforeMenu"> 
+                    <mat-icon class="m-0 text-primary">sort</mat-icon>
+                </button>
+                <mat-menu class="profile--menus w-150" #beforeMenu="matMenu" xPosition="before"> 
+                  <button mat-menu-item class="font-bold">Latest on Top</button>
+                  <button mat-menu-item class="font-bold">A to Z</button>
+                  <button mat-menu-item class="font-bold">Z to A</button>
+                </mat-menu>
+                
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="cust--mat--table allreq--table">
+                <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+               
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+                  </ng-container>
+               
+                  <ng-container matColumnDef="salesRepresentative">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Sales <br>  Representative </th>
+                    <td mat-cell *matCellDef="let element"> {{element.salesRepresentative}} </td>
+                  </ng-container> 
+
+                  <ng-container matColumnDef="hospitalName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hospital Name </th>
+                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.hospitalName}} </td>
+                  </ng-container>
+               
+                  <ng-container matColumnDef="location">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                    <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="hospitalContactNo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Hospital <br>
+                        Contact No </th>
+                    <td mat-cell *matCellDef="let element" class=" "> {{element.hospitalContactNo}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="contactPerson">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact <br>
+                        Person </th>
+                    <td mat-cell *matCellDef="let element" class=" "> {{element.contactPerson}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let element">  
+                        <p class="mb-0 text-capitalize {{element.status}}">{{element.status}}</p>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="d-flex align-items-center">
+                            <button mat-button class="icon--btn icon--accepted" (click)="alertModal()" [disabled]=element.actions> 
+                                <mat-icon class="m-0  ">check_circle</mat-icon>
+                            </button>
+                            <button mat-button class="icon--btn icon--rejected" (click)="cancelAlert()" [disabled]=element.actions > 
+                                <mat-icon class="m-0  material-symbols-outlined">cancel</mat-icon>
+                            </button> 
+                        </div>
+                    </td>
+                  </ng-container>
+              
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="8">No data matching the filter</td>
+                  </tr>
+
+                </table>
+              
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                               showFirstLastButtons
+                               aria-label="Select page of periodic elements">
+                </mat-paginator>
+              </div>
+              
+        </div>
+    </div>
+</div>

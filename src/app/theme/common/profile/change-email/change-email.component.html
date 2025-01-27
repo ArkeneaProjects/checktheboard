@@ -1,0 +1,43 @@
+<div class="modal--wrapper ccn--modal clr--001f2b">
+    <div class="col-12 d-flex flex-column w-100 ">  
+
+        <div class="d-flex align-items-center justify-content-between w-100 mb-4">
+            <h1 class="font-20 mb-0 font-bold">Change Email</h1>
+            <button mat-button class="icon--btn"> 
+                <mat-icon class="m-0 text-secondary" [mat-dialog-close]="true">close</mat-icon>
+            </button> 
+        </div> 
+
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>Enter New Email</mat-label>
+                    <input matInput placeholder="Enter Email Id " value="james.white475@gmail.com"  >
+                    <mat-error  >Error is here</mat-error>
+                </mat-form-field> 
+            </div>
+            <div class="col-12 d-flex justify-content-end mt--15 mb-4">
+                <button class="btn-md" mat-raised-button color="primary" (click)="changeEmail()">Change</button> 
+            </div>
+            <div class="col-12" *ngIf="otpSection">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Enter verification code sent on email:    <span class="font-bold"> james.white475&#64;gmail.com </span></p>
+                    </div>
+                    <div class="col-12">  
+                        <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{ length: 6 }"></ng-otp-input> 
+                       
+                    </div>
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <p class="mt-3 mb-4">Don’t receive OTP?  <a class="link text-decoration-none">Resend</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="d-flex align-items-center justify-content-center w-100 mt-2">  
+            <button class="btn-md" mat-raised-button color="primary" [mat-dialog-close]="true" (click)="submit()" >Submit</button> 
+        </div>
+    </div>
+</div>  

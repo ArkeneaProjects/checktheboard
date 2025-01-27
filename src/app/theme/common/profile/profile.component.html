@@ -1,0 +1,171 @@
+<div class="container-fluid profile--wrapper clr--001f2b">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="font-18 font-bold mb-4 mt-1">My Profile</h1>
+        </div>
+        <header class="col-12">
+            <div class="profile--header d-flex align-items-center">
+               <div class="position-relative">
+                    <div class="prof--round d-flex align-items-center justify-content-center flex-shrink-0">
+                        <h1 class="text-primary text-uppercase font-bold m-0" *ngIf="username">jd</h1>
+                        <img  src="assets/images/user/avatar-1.jpg" alt="" class="img-fluid" *ngIf="userimage">
+                    </div>
+                    <button mat-button class="icon--btn" (click)="changeUserImage()"> 
+                        <mat-icon class="m-0 text-primary">edit</mat-icon>
+                        <input class="choose--file" type="file" /> 
+                    </button> 
+
+               </div>
+                <div class="d-flex flex-column pro--details">
+                    <h2 class="font-bold mb-1 text-uppercase">john doe</h2>
+                    <div class="d-flex align-items-center">
+                        <mat-icon class="me-2">email</mat-icon>
+                        <p class="mb-0">johndoe&#64;gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="col-12">
+            <div class="profile--boby d-flex">
+                <mat-tab-group>
+                    <mat-tab label="Basic Information">
+                        <form class="container-fluid mt-3">
+                            <div class="row">
+                                <div class="col-12 px-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h1 class="font-18 font-bold mb-3 mt-2">Basic Information</h1>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>First Name *</mat-label>
+                                                <input matInput placeholder="First Name *" value="John">
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Last Name *</mat-label>
+                                                <input matInput placeholder="Last Name *" value="Doe">
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12">
+                                            <h1 class="font-18 font-bold mb-3 mt-1">Hospital Details</h1>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Hospital Name</mat-label>
+                                                <input matInput placeholder="Hospital Name" value="Boston Hospital ">
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Hospital Location</mat-label>
+                                                <input matInput placeholder="Hospital Location" value="New York, USA">
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12">
+                                            <h1 class="font-18 font-bold mb-3 mt-1">Email</h1>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12 col-lg-6">
+                                                    <mat-form-field appearance="outline" class="w-100 ">
+                                                        <mat-label>Email ID</mat-label>
+                                                        <input type="email" matInput placeholder="Email ID"
+                                                            value="johndoe@gmail.com">
+                                                        <mat-error *ngIf="">Error is here</mat-error>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <button class="btn-md" mat-raised-button color="primary"
+                                                        (click)="changeEmail()">
+                                                        Change Email
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <h1 class="font-18 font-bold mb-3 mt-1">Mobile Number</h1>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Mobile Number</mat-label>
+                                                <input matInput placeholder="Mobile Number" value="+1 987 654 3210">
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <button class="btn-md" mat-raised-button color="primary"
+                                                (click)="changeMobileNumber()">
+                                                Change Mobile Number
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 p-4 d-flex justify-content-end prof--footer">
+                                    <button class="btn-md" mat-raised-button color="primary">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-tab>
+                    <mat-tab label="Change Password">
+                        <form class="container-fluid mt-3">
+                            <div class="row">
+                                <div class="col-12 px-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h1 class="font-18 font-bold mb-3 mt-2">Change Password</h1>
+                                        </div>
+                                        <div class="col-12">
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Current Password</mat-label>
+                                                <input matInput [type]="hide() ? 'password' : 'text'" type="password" placeholder="Enter Current Password" value="aaaaa">
+                                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                                    <mat-icon class="text-secondary">{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field>
+                                        </div> 
+                                        <div class="col-12"> 
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>New Password</mat-label>
+                                                <input matInput  [type]="hide() ? 'password' : 'text'" type="password" placeholder="Enter New Password" value="aaaaa">
+                                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                                    <mat-icon class="text-secondary">{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field> 
+                                        </div>
+                                        <div class="col-12"> 
+                                            <mat-form-field appearance="outline" class="w-100 ">
+                                                <mat-label>Confirm New Password</mat-label>
+                                                <input matInput  [type]="hide() ? 'password' : 'text'" type="password" placeholder="Enter Confirm New Password" value="aaaaa">
+                                                <button mat-icon-button matSuffix (click)="clickEvent($event)"
+                                                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+                                                    <mat-icon class="text-secondary">{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                                </button>
+                                                <mat-error *ngIf="">Error is here</mat-error>
+                                            </mat-form-field> 
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12 p-4 d-flex justify-content-end prof--footer">
+                                    <button class="btn-md" mat-raised-button color="primary"
+                                        (click)="submit()">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </section>
+    </div>
+</div>

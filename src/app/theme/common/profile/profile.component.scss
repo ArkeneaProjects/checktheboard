@@ -1,0 +1,59 @@
+.profile--wrapper{
+    .profile--header{
+        background-color: #009BD6;
+        padding: 18px 24px;
+        border-radius: 6px;
+        .icon--btn{
+            position: absolute;
+            right: 12px;
+            bottom: 0;
+            padding: 2px;
+            border-radius: 100%;
+            height: auto;
+            background: #fff;
+            border: 1px solid #009BD6;
+            width: 24px;
+            height: 24px;
+            .mat-icon{
+                font-size: 16px;
+                height: 16px;
+                width: 16px;
+            }
+            .choose--file{
+                position: absolute;
+                left: -18px;
+                top: -13px;
+                width: 22px;
+                height: 22px;
+                opacity: 0;
+                cursor: pointer;
+            }
+        }
+        .prof--round{
+            width: 84px;
+            height: 84px;
+            border-radius: 100px;
+            background-color: #fff;
+            margin-right: 10px;
+            overflow: hidden;
+            h1{
+                font-size: 36px;
+            }
+        }
+        .pro--details{
+            color: #fff;
+            h2{
+                font-size: 18px;
+            }
+        }
+    }
+    .profile--boby{
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: -3px 9px 32px 0px rgba(159, 162, 191, 0.15);
+        margin-top: 15px;
+        .prof--footer{
+            border-top: 1px solid #F0F0F2;
+        }
+    }
+}

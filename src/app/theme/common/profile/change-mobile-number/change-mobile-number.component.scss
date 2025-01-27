@@ -1,0 +1,17 @@
+.ccn--modal{
+    .mt--15{
+        margin-top: -15px;
+    }
+    ::ng-deep{
+        .otp-input{
+            width: 61px !important;
+            height: 50px !important;
+            font-size: 16px !important;
+        }
+        .ng-otp-input-wrapper .otp-input {
+            margin: 0 5px;
+            border-radius: 10px;
+        }
+    }
+}
+
