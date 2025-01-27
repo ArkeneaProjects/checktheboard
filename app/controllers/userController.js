@@ -1,11 +1,9 @@
 const User = require('../models/User');
-const constants = require('../config/constants');
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const resFormat = require('./../helpers/responseFormat');
-
 
 /**
  * For login
@@ -39,7 +37,6 @@ exports.login = async (req, res) => {
   }
 };
 
-
 //create user
 exports.createUser = async (req, res) => {
   try {
@@ -51,3 +48,18 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ message: message.error });
   }
 };
+
+//get all users list
+exports.getUserList = async (req, res) => {
+  try {
+    const { query, fields, order, offset, limit } = req.body;
+    let userList = await User.find(query, fields)
+      .collation({ 'locale': 'en' }) //to ignore case sensitive.
+      .sort(order).skip(offset).limit(limit)
+    let totalCount = await User.find(query).count()
+    res.send(resFormat.rSuccess({ userList: userList, totalCount: totalCount }))
+  } catch (error) {
+    console.log("*******error******", error)
+    res.send(resFormat.rError({ message: message.serverError }))
+  }
+}
