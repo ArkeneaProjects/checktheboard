@@ -52,3 +52,61 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ message: message.error});
   }
 };
+
+// Update a particular user details
+exports.updateUserDetails = async (req, res) => {
+  try{
+    let { updateBody, query } = req.body
+
+    const user = await User.updateOne(query, { $set: updateBody })
+
+    res.send(resFormat.rSuccess({message: message.createHospital}))
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+}
+
+// Get user details by using email address for unique email
+exports.getUser = async (req, res) => {
+  try {
+    let { query, fields } = req.body
+    var userExists = await User.findOne(query, fields)
+
+    if (userExists) {
+      res.status(200).send(resFormat.rSuccess({ message: message.createHospital }));
+    } else {
+      return res.status(200).send({ status: message.createHospital })
+    }
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+}
+
+//create hospital
+exports.createHospital = async (req, res) => {
+  try {
+    const newHospital = new Hospital(req.body);
+    await newHospital.save();
+
+    res.send(resFormat.rSuccess({ message:  message.createHospital}))
+  } catch (error) {
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+};
+
+// Update a particular Hospital details
+exports.updateHospitalDetails = async (req, res) => {
+  try{
+    let { query, updateBody } = req.body
+
+    const hospital = await Hospital.updateOne(query, { $set: updateBody })
+
+    res.send(resFormat.rSuccess(hospital))
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+}
