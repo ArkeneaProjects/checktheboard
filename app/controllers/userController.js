@@ -49,7 +49,6 @@ exports.createUser = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 // Update a particular user details
 exports.updateUserDetails = async (req, res) => {
   try{
@@ -107,7 +106,6 @@ exports.updateHospitalDetails = async (req, res) => {
     res.status(500).json({ message: message.error});
   }
 }
-=======
 //get all users list
 exports.getUserList = async (req, res) => {
   try {
@@ -122,4 +120,3 @@ exports.getUserList = async (req, res) => {
     res.send(resFormat.rError({ message: message.serverError }))
   }
 }
->>>>>>> f7308b5a3975a5a202f9d99eea1a3ea47542ff30
