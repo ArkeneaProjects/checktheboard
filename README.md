@@ -1,18 +1,18 @@
-#CheckTheBoard
+**#CheckTheBoard**
 
-Versions
+**Versions**
 Node - 22.13.1
 
+**Angular** 18.0.5
 Bootstrap 5.3.3
-Angular 18.0.5
 Angular Material: 18.2.14
 
-Database
+**Database**
 MongoDB
 GitClone
 git clone https://github.com/checktheboard.git .
 
-Installation
+**Installation**
 Steps to setup project on the local system
 
 Create two folders i.e frontend and backend
@@ -34,21 +34,21 @@ git checkout dev_backend
 npm install or yarn install
 #To start a project, run yarn start command inside both folders.
 
-Branch Names
+Branch Names:
 
-Development
+**Development**
 dev_frontend
 dev_backend
 
-Staging
+**Staging**
 staging_frontend
 staging_backend
 
-Production
+**Production**
 prod_frontend
 prod_backend
 
-Deployment Project on servers,
+**Deployment** Project on servers,
 sudo su
 cd checktheboard
 git pull origin dev_backend | staging_backend | prod_backend (Based on the servers)
