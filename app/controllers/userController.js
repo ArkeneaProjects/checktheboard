@@ -17,7 +17,7 @@ const resFormat = require('./../helpers/responseFormat');
 exports.login = async (req, res) => {
   try {
     const { email, hash } = req.body;
-    let user = await User.findOne({email:email});
+    let user = await User.findOne({ email: email });
     if (!user) {
       res.send(resFormat.rError(message.login.invalidPassword))
     } else {
@@ -45,10 +45,9 @@ exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
     await newUser.save();
-
-    res.send(resFormat.rSuccess({ message:  message.createUser}))
+    res.send(resFormat.rSuccess({ message: message.createUser }))
   } catch (error) {
     console.log("*******error******", error)
-    res.status(500).json({ message: message.error});
+    res.status(500).json({ message: message.error });
   }
 };

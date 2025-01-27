@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const hospitalSchema = new mongoose.Schema({
-  userId:{
+  userId: {
     type: mongoose.Schema.ObjectId,
     ref: "users"
   },
@@ -37,9 +37,8 @@ const hospitalSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  
 }, {
-  collection: 'hospital'
+  collection: 'hospitals'
 });
 
 module.exports = mongoose.model('hospital', hospitalSchema);

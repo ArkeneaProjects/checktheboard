@@ -17,8 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   userType: {
     type: String,
-    enum: ['systemAdmin', 'hospitalAdmin', 'salesRep'],
-    default: 'salesRep'
+    default: 'salesRep' //'systemAdmin', 'hospitalAdmin', 'salesRep'
   },
   profileImage: {
     type: String,
@@ -26,8 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Active', 'Inactive'],
-    default: 'Inactive'
+    default: 'Inactive' //'Active', 'Inactive'
   },
   phone: {
     type: String,
@@ -43,8 +41,7 @@ const userSchema = new mongoose.Schema({
   },
   adminStatus: {
     type: String,
-    enum: ['Accepted', 'Rejected','Pending'],
-    default: "Pending"
+    default: "Pending" //'Accepted', 'Rejected','Pending'
   },
   hash: String,
   token: String,
@@ -68,7 +65,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  
 }, {
   collection: 'users'
 });

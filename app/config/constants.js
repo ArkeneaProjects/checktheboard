@@ -5,7 +5,6 @@ var constants = {
     url: process.env.DATABASE //value set in .env file
   },
   clientUrl: process.env.CLIENT_URL,
-
 }
 
 module.exports = constants
