@@ -1,9 +1,12 @@
 const User = require('../models/User');
+const emailTemplates = require('../models/emailTemplates');
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const resFormat = require('./../helpers/responseFormat');
+const crypto = require('crypto');
+
 
 /**
  * For login
@@ -131,32 +134,33 @@ function generateOTP() {
 exports.forgotPassword = async (req, res) => {
   const { query, fields } = req.body;
   let user = await User.findOne(query, fields);
-  if (!user) {
+  if (user == null) {
     res.send(resFormat.rError(message.forgot_password.invalidEmail))
-  }
+  }else{
   // generate otp
-  const otp = generateOTP();
-  user.forgotPasswordOtp = otp
-  await user.save();
+    const otp = generateOTP();
+    user.forgotPasswordOtp = otp
+    await user.save();
 
-  emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
-    if (template) {
-      let params = {
-        "{firstName}": user.firstName,
-        "{otp}": otp
-      }
-      var mailOptions = {
-        to: [user.email],
-        subject: template.mail_subject,
-        html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
-      }
-      sendEmailServices.sendEmail(mailOptions)
-      res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
-    } else {
-      res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
-    }
-  })
+    // let template = emailTemplates.findOne({code:'forgotPassword'})
+    // if (template) {
+    //   let params = {
+    //     "{firstName}": user.firstName,
+    //     "{otp}": otp
+    //   }
+    //   var mailOptions = {
+    //     to: [user.email],
+    //     subject: template.mail_subject,
+    //     html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+    //   }
+    //   sendEmailServices.sendEmail(mailOptions)
+    //   res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
+    // } else {
+    //   res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
+    // }
 
+    res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
+  }
 };
 
 
@@ -164,16 +168,16 @@ exports.forgotPassword = async (req, res) => {
 exports.verifyOtp = async (req, res) => {
   const { query, fields } = req.body;
   let user = await User.findOne(query, fields);
-  if (!user) {
+  if (user==null) {
     res.send(resFormat.rError(message.otp.invalid_otp))
+  }else{
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = Date.now() + 3600000; // Token valid for 1 hour
+    user.forgotPasswordOtp = undefined;
+    await user.save();
+    res.send(resFormat.rSuccess({ token: resetToken, message: message.otp.success }))
   }
-
-  const resetToken = crypto.randomBytes(20).toString('hex');
-  user.resetToken = resetToken;
-  user.resetTokenExpiration = Date.now() + 3600000; // Token valid for 1 hour
-  user.forgotPasswordOtp = undefined;
-  await user.save();
-  res.send(resFormat.rSuccess({ token: resetToken, message: message.otp.success }))
 };
 
 /**
@@ -187,22 +191,23 @@ exports.resendOtp = async (req, res) => {
   user.forgotPasswordOtp = otp;
   await user.save();
 
-  emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
-    if (template) {
-      let params = {
-        "{firstName}": user.firstName,
-        "{otp}": otp
-      }
-      var mailOptions = {
-        to: [user.email],
-        subject: template.mail_subject,
-        html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
-      }
-      sendEmailServices.sendEmail(mailOptions)
-      res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
-    } else {
-      res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
-    }
-  })
+  // emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
+  //   if (template) {
+  //     let params = {
+  //       "{firstName}": user.firstName,
+  //       "{otp}": otp
+  //     }
+  //     var mailOptions = {
+  //       to: [user.email],
+  //       subject: template.mail_subject,
+  //       html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+  //     }
+  //     sendEmailServices.sendEmail(mailOptions)
+  //     res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
+  //   } else {
+  //     res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
+  //   }
+  // })
 
+  res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
 };
