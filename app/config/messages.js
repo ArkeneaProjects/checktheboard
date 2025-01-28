@@ -3,6 +3,7 @@ const message = {
   userCreated: "User created successfully.",
   userDeleted: "User deleted successfully.",
   userUpdated: "User information updated successfully.",
+  userNotFound: "User not found",
   profilePictureChanged: "Profile picture changed successfully.",
   profilePictureDeleted: "Profile picture deleted successfully.",
   uploadingIssue: "Something went wrong, while uploading image.",

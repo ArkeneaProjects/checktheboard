@@ -56,7 +56,7 @@ exports.updateUserDetails = async (req, res) => {
 
     const user = await User.updateOne(query, { $set: updateBody })
 
-    res.send(resFormat.rSuccess({message: message.createHospital}))
+    res.send(resFormat.rSuccess({message: message.userUpdated}))
   } catch (error){
     console.log("*******error******", error)
     res.status(500).json({ message: message.error});
@@ -67,12 +67,12 @@ exports.updateUserDetails = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     let { query, fields } = req.body
-    var userExists = await User.findOne(query, fields)
+    var users = await User.findOne(query, fields)
 
-    if (userExists) {
-      res.status(200).send(resFormat.rSuccess({ message: message.createHospital }));
+    if (users) {
+      res.status(200).send(resFormat.rSuccess(users));
     } else {
-      return res.status(200).send({ status: message.createHospital })
+      return res.status(200).send({ status: message.userNotFound })
     }
   } catch (error){
     console.log("*******error******", error)
