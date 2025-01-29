@@ -1,10 +1,11 @@
 const User = require('../models/User');
-const emailTemplates = require('../models/emailTemplates');
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const resFormat = require('./../helpers/responseFormat');
+const sendEmailServices = require("./../services/sendEmail")
+const sendOTPServices = require('./../services/sendOTP');
 
 // Function to generate a 6-digit OTP
 function generateOTP() {
@@ -47,33 +48,57 @@ exports.login = async (req, res) => {
 
 
 exports.forgotPassword = async (req, res) => {
-    const { query } = req.body;
-    let user = await User.findOne(query, fields);
-    if (!user) {
-        res.send(resFormat.rError(message.forgotPassword.invalidEmail))
-    }
-    // generate otp
-    const otp = generateOTP();
-    user.forgotPasswordOtp = otp
-    await user.save();
-
-    emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
-        if (template) {
-            let params = {
-                "{firstName}": user.first_name,
-                "{otp}": otp
-            }
-            var mailOptions = {
-                to: [user.email],
-                subject: template.mail_subject,
-                html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
-            }
-            sendEmailServices.sendEmail(mailOptions)
-            res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
-        } else {
-            res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
+    try {
+        const { type, value } = req.body;
+        let query = { "phone": value }
+        let error = message.forgotPassword.phoneNotExist
+        if (type == 'email') {
+            query = { "email": value }
+            error = message.forgotPassword.emailNotExist
         }
-    })
+
+        let user = await User.findOne(query, { firstName: 1 });
+        if (!user) {
+            res.send(resFormat.rError(error))
+        } else {
+            // generate otp
+            const otp = generateOTP();
+
+            if (type == 'email') {
+                user.emailOtp = otp
+            } else {
+                user.phoneOtp = otp
+            }
+            await user.save();
+
+            if (type == 'email') {
+                emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
+                    if (template) {
+                        let params = {
+                            "{firstName}": user.firstName,
+                            "{otp}": otp
+                        }
+                        var mailOptions = {
+                            to: [value],
+                            subject: template.mailSubject,
+                            html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
+                        }
+                        //sendEmailServices.sendEmail(mailOptions)
+                        res.send(resFormat.rSuccess({ message: message.forgotPassword.successEmail, user: user }))
+                    } else {
+                        res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
+                    }
+                })
+            } else {
+                let body = 'Hi, Your OTP code to verify the Phone number for Chechtheboard platform is ' + otp
+                //sendOTPServices.sendCode("+1"+value, body)
+                res.send(resFormat.rSuccess({ message: message.forgotPassword.successPhone, user: user }))
+            }
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
 };
 
 exports.signup = async (req, res) => {

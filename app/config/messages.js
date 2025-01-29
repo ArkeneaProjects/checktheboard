@@ -1,5 +1,5 @@
 const message = {
-  serverError: "Server error.",
+  serverError: "Something went wrong!",
   userCreated: "User created successfully.",
   userDeleted: "User deleted successfully.",
   userUpdated: "User information updated successfully.",
@@ -12,7 +12,6 @@ const message = {
   quickNotifications: "Notifications has been sent successfully, Users will receive notifications shortly!",
   register: {
     success: "User registered successfully.",
-    fail: ""
   },
   login: {
     invalidPassword: "Invalid Password.",
@@ -24,8 +23,10 @@ const message = {
     phoneNotVerified: "The phone number is not verified, please login with your email id.",
   },
   forgotPassword: {
-    invalidEmail: "The email is not registered with Check the Board.",
-    success: "An OTP sent to your registered email id. Please check your email. ",
+    emailNotExist: "The email is not registered with Check the Board.",
+    phoneNotExist: "The mobile number is not registered with Check the Board.",
+    successEmail: "An OTP sent to your registered email id. Please check your email.",
+    successPhone: "An OTP sent to your registered phone number. Please check your phone.",
   },
   otp: {
     required: "Please enter an OTP",

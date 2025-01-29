@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     default: 'Inactive' //'Active', 'Inactive'
   },
   phone: {
-    type: String,
+    type: String, //save number without +1
     default: ""
   },
   isEmailVerified: {
@@ -47,6 +47,8 @@ const userSchema = new mongoose.Schema({
   token: String,
   resetToken: String,
   forgotPasswordOtp: String,
+  emailOtp: String,
+  phoneOtp: String,
   changeEmailOtp: String,
   changePhoneOtp: String,
   createdOn: {
