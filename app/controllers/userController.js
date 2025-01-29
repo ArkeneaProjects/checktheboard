@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Hospital = require('../models/Hospital')
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
@@ -41,8 +42,9 @@ exports.login = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
-    await newUser.save();
-    res.send(resFormat.rSuccess({ message: message.createUser }))
+    const user = await newUser.save();
+
+    res.send(resFormat.rSuccess({ userDetails: user,message: message.createUser }))
   } catch (error) {
     console.log("*******error******", error)
     res.status(500).json({ message: message.error });
@@ -81,7 +83,7 @@ exports.getUser = async (req, res) => {
 }
 
 //create hospital
-exports.createHospital = async (req, res) => {
+exports.creatHospital = async (req, res) => {
   try {
     const newHospital = new Hospital(req.body);
     await newHospital.save();
