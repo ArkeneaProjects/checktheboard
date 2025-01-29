@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Hospital = require('../models/Hospital')
 const emailTemplates = require('../models/emailTemplates');
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
@@ -44,8 +45,9 @@ exports.login = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     const newUser = new User(req.body);
-    await newUser.save();
-    res.send(resFormat.rSuccess({ message: message.createUser }))
+    const user = await newUser.save();
+
+    res.send(resFormat.rSuccess({ userDetails: user,message: message.createUser }))
   } catch (error) {
     console.log("*******error******", error)
     res.status(500).json({ message: message.error });
@@ -83,32 +85,7 @@ exports.getUser = async (req, res) => {
   }
 }
 
-//create hospital
-exports.createHospital = async (req, res) => {
-  try {
-    const newHospital = new Hospital(req.body);
-    await newHospital.save();
 
-    res.send(resFormat.rSuccess({ message:  message.createHospital}))
-  } catch (error) {
-    console.log("*******error******", error)
-    res.status(500).json({ message: message.error});
-  }
-};
-
-// Update a particular Hospital details
-exports.updateHospitalDetails = async (req, res) => {
-  try{
-    let { query, updateBody } = req.body
-
-    const hospital = await Hospital.updateOne(query, { $set: updateBody })
-
-    res.send(resFormat.rSuccess(hospital))
-  } catch (error){
-    console.log("*******error******", error)
-    res.status(500).json({ message: message.error});
-  }
-}
 //get all users list
 exports.getUserList = async (req, res) => {
   try {

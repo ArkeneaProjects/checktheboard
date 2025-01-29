@@ -9,7 +9,11 @@ const hospitalSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  location: {
+  addressOne: {
+    type: String,
+    default: ""
+  },
+  addressTwo: {
     type: String,
     default: ""
   },
@@ -21,13 +25,18 @@ const hospitalSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  createdBy: {
-    type: Date,
-    default: Date.now
+  zipcode: {
+    type: String,
+    default: ""
   },
-  updatedBy: {
-    type: Date,
-    default: Date.now
+  email: {
+    required: true,
+    type: String,
+    lowercase: true //stored email in lowercase.
+  },
+  phone: {
+    type: String,
+    default: ""
   },
   createdOn: {
     type: Date,
@@ -38,7 +47,7 @@ const hospitalSchema = new mongoose.Schema({
     default: Date.now
   },
 }, {
-  collection: 'hospitals'
+  collection: 'hospital'
 });
 
 module.exports = mongoose.model('hospital', hospitalSchema);
