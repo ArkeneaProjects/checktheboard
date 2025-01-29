@@ -24,13 +24,13 @@ const message = {
     phoneNotVerified: "The phone number is not verified, please login with your email id.",
   },
   forgot_password: {
-    invalidEmail: "Email not found.",
+    invalidEmail: "The email is not registered with Check the Board.",
     success: "An OTP sent to your registered email id. Please check your email. ",
   },
   otp: {
     required: "Please enter an OTP",
     success: "OTP verified successfully. ",
-    invalid_otp: "Please enter a valid OTP.",
+    invalid_otp: "The entered verification code is incorrect.",
     invalid_email: "Please enter a valid email.",
     resend: "Resend OTP. Please check your email.",
     not_found: "Enter details are invalid",
