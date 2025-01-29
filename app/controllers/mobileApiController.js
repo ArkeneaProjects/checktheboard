@@ -4,7 +4,14 @@ const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const resFormat = require('./../helpers/responseFormat'); 
+const resFormat = require('./../helpers/responseFormat');
+
+// Function to generate a 6-digit OTP
+function generateOTP() {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    return otp.toString();
+}
+
 
 /**
  * For login
@@ -38,4 +45,37 @@ exports.login = async (req, res) => {
     }
 };
 
- 
+
+exports.forgotPassword = async (req, res) => {
+    const { query } = req.body;
+    let user = await User.findOne(query, fields);
+    if (!user) {
+        res.send(resFormat.rError(message.forgotPassword.invalidEmail))
+    }
+    // generate otp
+    const otp = generateOTP();
+    user.forgotPasswordOtp = otp
+    await user.save();
+
+    emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
+        if (template) {
+            let params = {
+                "{firstName}": user.first_name,
+                "{otp}": otp
+            }
+            var mailOptions = {
+                to: [user.email],
+                subject: template.mail_subject,
+                html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+            }
+            sendEmailServices.sendEmail(mailOptions)
+            res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
+        } else {
+            res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
+        }
+    })
+};
+
+exports.signup = async (req, res) => {
+
+}

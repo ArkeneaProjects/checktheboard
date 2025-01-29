@@ -23,4 +23,7 @@ const mobileController = require('../controllers/mobileApiController.js');
  *         description: Successful login with JWT token in response
  */
 router.post('/login', mobileController.login);
+router.post('/signup', mobileController.signup);
+router.post('/forgotPassword', mobileController.forgotPassword);
+
 module.exports = router;

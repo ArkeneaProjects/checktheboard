@@ -112,7 +112,7 @@ exports.forgotPassword = async (req, res) => {
   const { query, fields } = req.body;
   let user = await User.findOne(query, fields);
   if (user == null) {
-    res.send(resFormat.rError(message.forgot_password.invalidEmail))
+    res.send(resFormat.rError(message.forgotPassword.invalidEmail))
   }else{
   // generate otp
     const otp = generateOTP();
@@ -131,12 +131,12 @@ exports.forgotPassword = async (req, res) => {
     //     html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
     //   }
     //   sendEmailServices.sendEmail(mailOptions)
-    //   res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
+    //   res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
     // } else {
     //   res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
     // }
 
-    res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
+    res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
   }
 };
 
@@ -146,7 +146,7 @@ exports.verifyOtp = async (req, res) => {
   const { query, fields } = req.body;
   let user = await User.findOne(query, fields);
   if (user==null) {
-    res.send(resFormat.rError(message.otp.invalid_otp))
+    res.send(resFormat.rError(message.otp.invalidOtp))
   }else{
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetToken = resetToken;
@@ -180,11 +180,11 @@ exports.resendOtp = async (req, res) => {
   //       html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
   //     }
   //     sendEmailServices.sendEmail(mailOptions)
-  //     res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
+  //     res.send(resFormat.rSuccess({ forgotPassword_otp: otp, message: message.otp.resend }))
   //   } else {
   //     res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
   //   }
   // })
 
-  res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
+  res.send(resFormat.rSuccess({ forgotPassword_otp: otp, message: message.otp.resend }))
 };
