@@ -85,32 +85,7 @@ exports.getUser = async (req, res) => {
   }
 }
 
-//create hospital
-exports.creatHospital = async (req, res) => {
-  try {
-    const newHospital = new Hospital(req.body);
-    await newHospital.save();
 
-    res.send(resFormat.rSuccess({ message:  message.createHospital}))
-  } catch (error) {
-    console.log("*******error******", error)
-    res.status(500).json({ message: message.error});
-  }
-};
-
-// Update a particular Hospital details
-exports.updateHospitalDetails = async (req, res) => {
-  try{
-    let { query, updateBody } = req.body
-
-    const hospital = await Hospital.updateOne(query, { $set: updateBody })
-
-    res.send(resFormat.rSuccess(hospital))
-  } catch (error){
-    console.log("*******error******", error)
-    res.status(500).json({ message: message.error});
-  }
-}
 //get all users list
 exports.getUserList = async (req, res) => {
   try {
