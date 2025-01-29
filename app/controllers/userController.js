@@ -1,9 +1,6 @@
 const User = require('../models/User');
-<<<<<<< HEAD
 const Hospital = require('../models/Hospital')
-=======
 const emailTemplates = require('../models/emailTemplates');
->>>>>>> c1369727c6a28e207fb3c533f4f74e397808bfd1
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');
