@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const emailSchema = new mongoose.Schema({
-  
   type: {
     type: String,
     default: ""
@@ -14,11 +13,7 @@ const emailSchema = new mongoose.Schema({
     type: String,
     lowercase: true //stored email in lowercase.
   },
-  created_on: {
-    type: Date,
-    default: Date.now
-  },
-  modified_on: {
+  createdOn: {
     type: Date,
     default: Date.now
   },
@@ -26,11 +21,11 @@ const emailSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  mail_body: {
+  mailBody: {
     type: String,
     default: ''
   },
-  mail_subject: {
+  mailSubject: {
     type: String,
     default: ''
   },

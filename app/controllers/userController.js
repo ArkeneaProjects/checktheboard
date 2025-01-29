@@ -150,8 +150,8 @@ exports.forgotPassword = async (req, res) => {
     //   }
     //   var mailOptions = {
     //     to: [user.email],
-    //     subject: template.mail_subject,
-    //     html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+    //     subject: template.mailSubject,
+    //     html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
     //   }
     //   sendEmailServices.sendEmail(mailOptions)
     //   res.send(resFormat.rSuccess({ message: message.forgot_password.success, induser: user }))
@@ -199,8 +199,8 @@ exports.resendOtp = async (req, res) => {
   //     }
   //     var mailOptions = {
   //       to: [user.email],
-  //       subject: template.mail_subject,
-  //       html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+  //       subject: template.mailSubject,
+  //       html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
   //     }
   //     sendEmailServices.sendEmail(mailOptions)
   //     res.send(resFormat.rSuccess({ forgot_password_otp: otp, message: message.otp.resend }))
