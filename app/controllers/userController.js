@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Hospital = require('../models/Hospital')
-const emailTemplates = require('../models/emailTemplates');
+const emailTemplates = require('../models/EmailTemplates');
 const message = require('../config/messages')
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const bcrypt = require('bcrypt');

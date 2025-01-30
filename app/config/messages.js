@@ -4,6 +4,7 @@ const message = {
   userDeleted: "User deleted successfully.",
   userUpdated: "User information updated successfully.",
   userNotFound: "User not found",
+  recordNotFound: "Record not found",
   profilePictureChanged: "Profile picture changed successfully.",
   profilePictureDeleted: "Profile picture deleted successfully.",
   uploadingIssue: "Something went wrong, while uploading image.",
@@ -37,13 +38,13 @@ const message = {
   },
   resetPassword: {
     invalidToken: "Password Reset Unsuccessful. Please try again.",
-    success: "You have successfully reset your password. "
+    success: "You have successfully reset your password."
   },
   changePassword: {
     invalidEmail: "Email not found.",
     correctPassword: "Please enter the correct old password",
     invalidCurrentPassword: "Please enter current password.’ & if not, matched  - ‘Wrong Password. Please check the password again.’",
-    success: "You have successfully changed your password. ",
+    success: "You have successfully changed your password.",
     samePassword: "Please set a password that is different than your current one.",
     currentPassword: "please enter current password",
     newPassword: "please enter new password"
