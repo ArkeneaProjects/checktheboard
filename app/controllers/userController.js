@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const resFormat = require('./../helpers/responseFormat');
 const crypto = require('crypto');
+const sendEmailServices = require("./../services/sendEmail")
 
 
 /**
@@ -21,7 +22,7 @@ exports.login = async (req, res) => {
     const { email, hash } = req.body;
     let user = await User.findOne({ email: email });
     if (!user) {
-      res.send(resFormat.rError(message.login.invalidPassword))
+      res.send(resFormat.rError(message.login.invalidEmail))
     } else {
       if (user.hash == undefined || user.hash == null) {
         res.send(resFormat.rError(message.login.invalidPassword))
@@ -112,7 +113,7 @@ exports.forgotPassword = async (req, res) => {
   const { query, fields } = req.body;
   let user = await User.findOne(query, fields);
   if (user == null) {
-    res.send(resFormat.rError(message.forgotPassword.invalidEmail))
+    res.send(resFormat.rError(message.forgotPassword.emailNotExist))
   }else{
   // generate otp
     const otp = generateOTP();
@@ -128,15 +129,15 @@ exports.forgotPassword = async (req, res) => {
     //   var mailOptions = {
     //     to: [user.email],
     //     subject: template.mailSubject,
-    //     html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
+        //     html: sendEmailServices.generateContentFromTemplate(template.mailBody, params)
     //   }
-    //   sendEmailServices.sendEmail(mailOptions)
+      //   sendEmailServices.sendEmail(mailOptions)
     //   res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
     // } else {
     //   res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
     // }
 
-    res.send(resFormat.rSuccess({ message: message.forgotPassword.success, induser: user }))
+    res.send(resFormat.rSuccess({ message: message.forgotPassword.successEmail, induser: user }))
   }
 };
 
@@ -168,7 +169,7 @@ exports.resendOtp = async (req, res) => {
   user.forgotPasswordOtp = otp;
   await user.save();
 
-  // emailTemplates.getEmailTemplateByCode('forgotPassword').then((template) => {
+  // let template = emailTemplates.findOne({code:'forgotPassword'})
   //   if (template) {
   //     let params = {
   //       "{firstName}": user.firstName,
@@ -184,7 +185,23 @@ exports.resendOtp = async (req, res) => {
   //   } else {
   //     res.status(401).send(resFormat.rError({ message: message.emailTemplate404 }));
   //   }
-  // })
+  res.send(resFormat.rSuccess({message: message.otp.resend }))
+};
 
-  res.send(resFormat.rSuccess({ forgotPassword_otp: otp, message: message.otp.resend }))
+exports.updateNewPassword = async (req, res) => {
+  const { query, fields } = req.body;
+  console.log(fields)
+  let user = await User.findOne(query);
+  const hashedPassword = await bcrypt.hash(fields.newPassword, 10);
+  user.hash = hashedPassword;
+  await user.save();
+  res.send(resFormat.rSuccess({ message: message.changePassword.success }))
+};
+
+exports.getDashboardData = async (req, res) => {
+  const { query, fields } = req.body;
+  let salesRepCount = await User.countDocuments({userType:'salesRep',status:'Active'});
+  let hospitalCount = await Hospital.countDocuments({status:'Active'});
+  let tempObj = {salesRepCount:salesRepCount,hospitalCount:hospitalCount}
+  res.send(resFormat.rSuccess({ message: message.changePassword.success, results: tempObj }))
 };
