@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const resFormat = require('./../helpers/responseFormat');
 const sendEmailServices = require("./../services/sendEmail")
 const sendOTPServices = require('./../services/sendOTP');
+const CmsPages = require('../models/CmsPages');
 
 // Function to generate a 6-digit OTP
 function generateOTP() {
@@ -101,6 +102,99 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-exports.signup = async (req, res) => {
+exports.verifyCode = async (req, res) => {
+    try {
+        const { type, value, otp } = req.body;
+        if (!otp || otp == '') {
+            res.send(resFormat.rError(message.otp.required))
+        } else {
+            let query = { "phone": value, phoneOtp: otp }
+            if (type == 'email') {
+                query = { "email": value, emailOtp: otp }
+            }
+            let user = await User.findOne(query, { firstName: 1 });
+            if (!user) {
+                res.send(resFormat.rError(message.otp.invalidOtp))
+            } else {
+                if (type == 'email') {
+                    user.emailOtp = ''
+                } else {
+                    user.phoneOtp = ''
+                }
+                await user.save();
+                res.send(resFormat.rSuccess({ message: message.otp.success, user: user }))
+            }
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
 
+exports.setPassword = async (req, res) => {
+    try {
+        const { type, value } = req.body;
+        if (!value || value == '') {
+            res.send(resFormat.rError(message.changePassword.newPassword))
+        } else {
+            let query = { "phone": value }
+            if (type == 'email') {
+                query = { "email": value }
+            }
+            let user = await User.findOne(query, { firstName: 1 });
+            if (!user) {
+                res.send(resFormat.rError(message.userNotFound))
+            } else {
+                const hashedPassword = await bcrypt.hash(value, 10);
+                user.hash = hashedPassword;
+                await user.save();
+                res.send(resFormat.rError(message.changePassword.success))
+            }
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
+
+exports.getCms = async (req, res) => {
+    try {
+        let cms = await CmsPages.findOne({ "code" : req.body.code }, {title:1,body:1}); 
+        if (!cms) {
+            res.send(resFormat.rError(message.recordNotFound))
+        } else {
+            res.send(resFormat.rSuccess(cms))
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
+
+exports.getProfile = async (req, res) => {
+    try {
+        let user = await User.findOne({ "_id" : req.body.id }, {"__v":0, "hash":0}); 
+        if (!user) {
+            res.send(resFormat.rError(message.userNotFound))
+        } else {
+            res.send(resFormat.rSuccess(user))
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
+
+exports.updateProfile = async (req, res) => {
+    try {
+        let user = await User.updateOne({ "_id" : req.body.id }, { $set: req.body.updateInfo })
+        if (!user) {
+            res.send(resFormat.rError(message.serverError))
+        } else {
+            res.send(resFormat.rSuccess(user))
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.send(resFormat.rSuccess({ message: message.userUpdated, user: user }))
+    }
 }
