@@ -1,10 +1,11 @@
 import { Component, inject, signal, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validationMessages } from '../../core/utils/messages'
 import { AuthService } from '../../core/services/auth.service'
 import { CommonService } from '../../core/services/common.service'
 import { StepperOrientation,MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password', 
@@ -22,7 +23,7 @@ export class ForgotPasswordComponent {
   hide = signal(true);
   isResendButtonShow = false
   constructor(private authService: AuthService,
-    private commonService: CommonService){
+    private commonService: CommonService,public router: Router){
 
   }
 
@@ -31,8 +32,20 @@ export class ForgotPasswordComponent {
       email: ['', [Validators.required, Validators.email]],
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+      newPassword: ['', [Validators.required,Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-@$!%*?&#^()+=_<>,./;:'"|\`~])[A-Za-z\d-@$!%*?&#^()+=_<>,./;:'"|\`~]{8,16}$/)]],
+      confirmPassword: ['', Validators.required]
+    }, {
+      validator: this.passwordMatchValidator
     });
+  }
+
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const newPassword:any = control.get('newPassword');
+    const confirmPassword:any = control.get('confirmPassword');
+    if (confirmPassword.value && newPassword.value !== confirmPassword.value) {
+      return { 'passwordMismatch': true };
+    }
+    return null;
   }
 
   goToNext(stepForm){
@@ -45,6 +58,7 @@ export class ForgotPasswordComponent {
         if(response.status=='error'){
           this.commonService.toastMessage(response?.data)
         }else{
+          this.commonService.toastMessage(response?.data.message)
           this.stepper.next();
           setTimeout(() => {
             this.isResendButtonShow = true;
@@ -62,13 +76,34 @@ export class ForgotPasswordComponent {
         if(response.status=='error'){
           this.commonService.toastMessage(response?.data)
         }else{
+          this.commonService.toastMessage(response?.data.message)
           this.stepper.next();
+        }
+      })
+    }
+
+    if (stepForm==3 && !this.secondFormGroup.invalid){
+      let reqVars = {
+        query: { email: this.firstFormGroup.controls['email'].value },
+        fields: {newPassword: this.secondFormGroup.controls['newPassword'].value }
+      }
+      this.authService.apiRequest('post', 'users/updateNewPassword', reqVars).subscribe(async response => {
+        if(response.status=='error'){
+          this.commonService.toastMessage(response?.data)
+        }else{
+          this.commonService.toastMessage(response?.data.message)
+          this.router.navigate(['/login/']);
         }
       })
     }
 
     if (stepForm==1 && this.firstFormGroup.invalid){
       this.firstFormGroup.markAllAsTouched();
+      return;
+    }
+
+    if (stepForm==3 && this.secondFormGroup.invalid){
+      this.secondFormGroup.markAllAsTouched();
       return;
     }
   }

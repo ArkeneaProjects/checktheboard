@@ -17,7 +17,9 @@ export class AdminLayoutComponent {
   mobileQuery: MediaQueryList;  
 
   private _mobileQueryListener: () => void;
-
+  userName = ''
+  userDetails:any
+  userType = ''
   constructor(public router: Router) { 
     const changeDetectorRef = inject(ChangeDetectorRef);
     const media = inject(MediaMatcher);
@@ -25,6 +27,18 @@ export class AdminLayoutComponent {
     this.mobileQuery = media.matchMedia('(max-width: 800px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener); 
+
+    let user: any = localStorage.getItem('user');
+    this.userDetails = JSON.parse(user).userDetails
+    this.userName = this.userDetails.firstName +' '+ this.userDetails.lastName
+    if(this.userDetails.userType=='systemAdmin'){
+      this.userType = 'System Admin'
+    }else if(this.userDetails.userType=='salesRep') {
+      this.userType = ' Sales Rep'
+    }else if(this.userDetails.userType=='hospitalAdmin') {
+      this.userType = ' Hospital Admin'
+    }
+    
   }
 
   ngOnDestroy(): void {
@@ -45,7 +59,6 @@ export class AdminLayoutComponent {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
       if(result){
         this.router.navigate(['/login/']);
         localStorage.removeItem('user')
