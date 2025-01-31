@@ -17,7 +17,7 @@ export default class LoginComponent {
   userType: string = '';
   public loginForm: FormGroup;
   constructor(
-    private fb: FormBuilder,
+    private _formBuilder: FormBuilder,
     public router: Router,
     private authService: AuthService,
     private commonService: CommonService
@@ -25,13 +25,7 @@ export default class LoginComponent {
     let rememberMeData: any = localStorage.getItem('rememberMe');
     if (rememberMeData != null) { this.rememberMeObj = JSON.parse(rememberMeData) }
   }
-
-  
-  private _formBuilder = inject(FormBuilder);
-  
-
   ngOnInit() {
-    console.log(this.rememberMeObj)
     this.loginForm = this._formBuilder.group({
       email: [this.rememberMeObj.email, [Validators.required, Validators.email]],
       password: [this.rememberMeObj.password, Validators.required],
@@ -54,7 +48,6 @@ export default class LoginComponent {
       }
   
       this.authService.apiRequest('post', 'users/login', reqVars).subscribe(async response => {
-        console.log(response)
         if(response.status=='success'){
           this.setLocalStorage(response, this.loginForm.value)
           this.router.navigate(['/super-admin/dashboard/']);
@@ -63,11 +56,14 @@ export default class LoginComponent {
         }
       })
     }
+    if (this.loginForm.invalid){
+      this.loginForm.markAllAsTouched();
+      return;
+    }
   }
 
   setLocalStorage(res: any, loginValues: any) {
     localStorage.setItem('user', JSON.stringify(res.data));
-    console.log(this.loginForm.controls['rememberMe'].value)
     if (this.loginForm.controls['rememberMe'].value) {
       localStorage.setItem('rememberMe', JSON.stringify(loginValues));
     } else {

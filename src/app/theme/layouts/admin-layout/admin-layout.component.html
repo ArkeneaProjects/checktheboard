@@ -11,8 +11,8 @@
     </div>
     <mat-menu class="profile--menus" #beforeMenu="matMenu" xPosition="before">
       <div class="w-100 d-flex flex-column user--info">
-        <h2 class="font-16 font-bold mb-0 clr--001f2b">James White</h2>
-        <p class="mb-0 font-14 text-secondary"> Super Admin </p>
+        <h2 class="font-16 font-bold mb-0 clr--001f2b">{{userName}}</h2>
+        <p class="mb-0 font-14 text-secondary"> {{userType}} </p>
       </div>
       <button mat-menu-item class="font-bold" routerLink="/profile"> <mat-icon class="me-2 clr--001f2b">account_circle</mat-icon> My Profile</button>
       <button mat-menu-item class="font-bold" (click)="logout()"> <mat-icon class="me-2 clr--001f2b">logout</mat-icon> Sign Out</button>
