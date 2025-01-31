@@ -16,6 +16,10 @@ const routes: Routes = [
       component: AddHospitalComponent, 
     },
     {
+      path: 'manage-hospitals/edit-hospital/:id',
+      component: AddHospitalComponent, 
+    },
+    {
       path: 'dashboard',
       component: DashboardComponent, 
     },

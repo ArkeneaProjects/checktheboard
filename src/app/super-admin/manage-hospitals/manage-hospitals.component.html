@@ -40,28 +40,28 @@
                
                   <ng-container matColumnDef="hospital">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Hospital </th>
-                    <td mat-cell *matCellDef="let element"> {{element.hospital}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                   </ng-container>
                
                   <ng-container matColumnDef="cityandState">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> City and State </th>
-                    <td mat-cell *matCellDef="let element"> {{element.cityandState}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.city}} {{element.state}}</td>
                   </ng-container> 
 
                   <ng-container matColumnDef="hospitalContactNo">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Hospital <br>
                         Contact No </th>
-                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.hospitalContactNo}} </td>
+                    <td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.phone}} </td>
                   </ng-container>
                
                   <ng-container matColumnDef="hospitalAdmin">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Hospital Admin </th>
-                    <td mat-cell *matCellDef="let element"> {{element.hospitalAdmin}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="emailAddress">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Email address </th>
-                    <td mat-cell *matCellDef="let element" class="text-break"> {{element.emailAddress}} </td>
+                    <td mat-cell *matCellDef="let element" class="text-break"> {{element.email}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="status">

@@ -2,6 +2,7 @@ export const validationMessages = {
   required: (fieldName: string) => `Please Enter ${fieldName}`,
   validEmail: 'The email address seems to be incorrect',
   email: (fieldName: string) => `Please enter a valid ${fieldName}`,
+  emailAlreadyRegistered: 'Email already exist',
   password: 'Minimum 8 and maximum 16 character, atleast one special character, one numeric & 1 uppercase and lowercase letter',
   passwordMismatch: 'The passwords do not match. Please try again',
   confirmPassword: 'Please confirm your password',

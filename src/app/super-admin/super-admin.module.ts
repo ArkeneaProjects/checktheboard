@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { IMaskModule } from 'angular-imask';
 import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { ManageHospitalsComponent } from './manage-hospitals/manage-hospitals.component';
 import { MaterialModule } from '../theme/shared/material.module';
@@ -25,7 +25,8 @@ import { SalesRepsComponent } from './sales-reps/sales-reps.component';
     SuperAdminRoutingModule,
     MaterialModule,  
     SharedModule, 
-    FormsModule
+    FormsModule,
+    IMaskModule
   ]
 })
 export class SuperAdminModule { }
