@@ -56,13 +56,14 @@ exports.getHospitalDetails = async (req, res) => {
 exports.getAllHopitals = async (req, res) => {
   try{
     const { query, fields, order, offset, limit } = req.body;
-    let hospitals = await User.find(query, fields)
-      .populate('userId', { firstName: 1, lastName: 1, email: 1, status: 1, city: 1, state: 1, zipcode: 1 })
+    
+    let hospitals = await Hospital.find(query, fields)
+      .populate('userId', { firstName: 1, lastName: 1, email: 1, status: 1})
       .collation({ 'locale': 'en' })
       .sort(order).skip(offset).limit(limit)
-    let totalCount = await User.find(query).count()
+    //let totalCount = await User.find(query).count()
 
-    res.send(resFormat.rSuccess({ hospitals: hospitals, totalCount}))
+    res.send(resFormat.rSuccess({ hospitals: hospitals}))
   } catch (error){
     console.log("*******error******", error)
     res.status(500).json({ message: message.error});
