@@ -1,9 +1,10 @@
 const message = {
-  serverError: "Server error.",
+  serverError: "Something went wrong!",
   userCreated: "User created successfully.",
   userDeleted: "User deleted successfully.",
   userUpdated: "User information updated successfully.",
   userNotFound: "User not found",
+  recordNotFound: "Record not found",
   profilePictureChanged: "Profile picture changed successfully.",
   profilePictureDeleted: "Profile picture deleted successfully.",
   uploadingIssue: "Something went wrong, while uploading image.",
@@ -12,7 +13,6 @@ const message = {
   quickNotifications: "Notifications has been sent successfully, Users will receive notifications shortly!",
   register: {
     success: "User registered successfully.",
-    fail: ""
   },
   login: {
     invalidPassword: "Invalid Password.",
@@ -23,41 +23,41 @@ const message = {
     phoneNotFound: "The phone number entered is not registered with us.",
     phoneNotVerified: "The phone number is not verified, please login with your email id.",
   },
-  forgot_password: {
-    invalidEmail: "The email is not registered with Check the Board.",
-    success: "An OTP sent to your registered email id. Please check your email. ",
+  forgotPassword: {
+    emailNotExist: "The email is not registered with Check the Board.",
+    phoneNotExist: "The mobile number is not registered with Check the Board.",
+    successEmail: "An OTP sent to your registered email id. Please check your email.",
+    successPhone: "An OTP sent to your registered phone number. Please check your phone.",
   },
   otp: {
     required: "Please enter an OTP",
     success: "OTP verified successfully. ",
-    invalid_otp: "The entered verification code is incorrect.",
-    invalid_email: "Please enter a valid email.",
-    resend: "Resend OTP. Please check your email.",
-    not_found: "Enter details are invalid",
+    invalidOtp: "The entered verification code is incorrect.",
+    invalidEmail: "Please enter a valid email.",
+    resend: "Resend OTP. Please check your email."
   },
-  reset_password: {
-    not_found: "User not found",
+  resetPassword: {
     invalidToken: "Password Reset Unsuccessful. Please try again.",
-    success: "You have successfully reset your password. "
+    success: "You have successfully reset your password."
   },
-  change_password: {
+  changePassword: {
     invalidEmail: "Email not found.",
-    correctPassword:"Please enter the correct old password",
+    correctPassword: "Please enter the correct old password",
     invalidCurrentPassword: "Please enter current password.’ & if not, matched  - ‘Wrong Password. Please check the password again.’",
-    success: "You have successfully changed your password. ",
+    success: "You have successfully changed your password.",
     samePassword: "Please set a password that is different than your current one.",
     currentPassword: "please enter current password",
     newPassword: "please enter new password"
   },
-  change_profile: {
+  changeProfile: {
     invalidEmail: "Email not found.",
     success: "You have successfully changed your profile. "
   },
-  change_email: {
-    logout_reason: "Your email has been been changed",
+  changeEmail: {
+    logoutReason: "Your email has been been changed",
     success: "You have successfully changed your email. "
   },
-  change_phone: {
+  changePhone: {
     success: "You have successfully changed your phone. "
   },
   name: {
@@ -75,11 +75,11 @@ const message = {
   phoneNumber: {
     required: "Phone Number is Required.",
     pattern: "Alphabets are not allowed.",
-    change_request: "A phone number change request sent successfully!",
-    phone_otp: "Resend OTP. Please check your phone.",
+    changeRequest: "A phone number change request sent successfully!",
+    phoneOtp: "Resend OTP. Please check your phone.",
     duplicate: "Phone number is already exist, please use different number"
   },
-  profile_pic: {
+  profileImage: {
     required: "Profile picture is Required."
   },
   inviteUser: {
@@ -87,27 +87,12 @@ const message = {
   },
   token: {
     required: "Token should not be empty",
-    not_found: "Invalid token provided.",
-    token_expire: "Invitation link is expired. Please contact Path2caregiving team to receive invitation link."
+    notFound: "Invalid token provided.",
+    tokenExpire: "Invitation link is expired. Please contact Path2caregiving team to receive invitation link."
   },
-  object_id: {
-    not_found: "Invalid object id provided."
-  },
-  resend_invite: {
-    success: "Notification sent successfully !.",
-    faliure: "Oops ! Users not found to notify. ",
-  },
-  logout_reason:
-  {
-    suspend: "You are suspended by the admin"
-  }, 
-  myprofile: {
-    first_name: "Please enter first name",
-    last_name: "Please enter last name",
-    email: "Please enter email",
-    valid_email: "Please enter a valid email",
-    phone: "Please enter phone",
-  },
+  objectId: {
+    notFound: "Invalid object id provided."
+  }
 };
 
 module.exports = message;
