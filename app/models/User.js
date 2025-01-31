@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isMobileVerified: {
+    type: Boolean,
+    default: false
+  },
   myHospital:{
     type: Array,
     default: []
@@ -66,6 +70,10 @@ const userSchema = new mongoose.Schema({
   fcmToken: {
     type: String,
     default: ''
+  },
+  companyName: {
+    type: String,
+    default: ""
   },
 }, {
   collection: 'users'

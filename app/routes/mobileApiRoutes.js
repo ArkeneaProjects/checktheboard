@@ -136,7 +136,7 @@ router.post('/getProfile', mobileController.getProfile);
  * @swagger
  * /updateProfile:
  *   post:
- *     summary: get user details
+ *     summary:  to update user profile
  *     requestBody:
  *       content:
  *         application/json:
@@ -151,9 +151,77 @@ router.post('/getProfile', mobileController.getProfile);
  
  *     responses:
  *       200:
- *         description: get CMS content
+ *         description: update records
  */
 router.post('/updateProfile', mobileController.updateProfile);
 
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: register sales repo after submit all the steps.
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                   type: string
+ *               lastName:
+ *                   type: string
+ *               email:
+ *                   type: string
+ *               phone:
+ *                   type: string
+ *               password:
+ *                   type: string
+ *               companyName:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: user details
+ */
+router.post('/signup', mobileController.signup);
+
+/**
+ * @swagger
+ * /isExit:
+ *   post:
+ *     summary: check email/phone already exist or not
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               type:
+ *                   type: string
+ *               value:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: return success if exist else return error msg
+ */
+router.post('/isExit', mobileController.isExit);
+
+/**
+ * @swagger
+ * /delete:
+ *   post:
+ *     summary: delete user account permentely
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                   type: string
+ *     responses:
+ *       200:
+ *         description: user deleted
+ */
+router.post('/delete', mobileController.delete);
 
 module.exports = router;

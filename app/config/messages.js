@@ -11,6 +11,7 @@ const message = {
   statusUpdated: "User status updated successfully.",
   emailTemplate404: "Email template is not available.",
   quickNotifications: "Notifications has been sent successfully, Users will receive notifications shortly!",
+  requiredField: "Please enter all the required fields.",
   register: {
     success: "User registered successfully.",
   },

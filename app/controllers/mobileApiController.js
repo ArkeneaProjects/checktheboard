@@ -14,7 +14,6 @@ function generateOTP() {
     return otp.toString();
 }
 
-
 /**
  * For login
  * @param {email,hash} req 
@@ -27,14 +26,14 @@ exports.login = async (req, res) => {
         const { email, hash } = req.body;
         let user = await User.findOne({ email: email });
         if (!user) {
-            res.send(resFormat.rError(message.login.invalidPassword))
+            res.send(resFormat.rError({ message: message.login.invalidPassword }))
         } else {
             if (user.hash == undefined || user.hash == null) {
                 res.send(resFormat.rError(message.login.invalidPassword))
             } else {
                 const isPasswordValid = await bcrypt.compare(hash, user.hash);
                 if (!isPasswordValid) {
-                    res.send(resFormat.rError(message.login.invalidPassword))
+                    res.send(resFormat.rError({ message: message.login.invalidPassword }))
                 } else {
                     const token = jwt.sign({ userId: user._id }, JWT_SECRET_KEY, { expiresIn: '1h' });
                     res.send(resFormat.rSuccess({ message: message.login.success, "userDetails": user, "token": token, expiresIn: '1h' }))
@@ -118,8 +117,10 @@ exports.verifyCode = async (req, res) => {
             } else {
                 if (type == 'email') {
                     user.emailOtp = ''
+                    user.isEmailVerified = true
                 } else {
                     user.phoneOtp = ''
+                    user.isMobileVerified = true
                 }
                 await user.save();
                 res.send(resFormat.rSuccess({ message: message.otp.success, user: user }))
@@ -159,7 +160,7 @@ exports.setPassword = async (req, res) => {
 
 exports.getCms = async (req, res) => {
     try {
-        let cms = await CmsPages.findOne({ "code" : req.body.code }, {title:1,body:1}); 
+        let cms = await CmsPages.findOne({ "code": req.body.code }, { title: 1, body: 1 });
         if (!cms) {
             res.send(resFormat.rError(message.recordNotFound))
         } else {
@@ -173,7 +174,7 @@ exports.getCms = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
     try {
-        let user = await User.findOne({ "_id" : req.body.id }, {"__v":0, "hash":0}); 
+        let user = await User.findOne({ "_id": req.body.id }, { "__v": 0, "hash": 0 });
         if (!user) {
             res.send(resFormat.rError(message.userNotFound))
         } else {
@@ -187,14 +188,77 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
     try {
-        let user = await User.updateOne({ "_id" : req.body.id }, { $set: req.body.updateInfo })
+        let user = await User.updateOne({ "_id": req.body.id }, { $set: req.body.updateInfo })
         if (!user) {
             res.send(resFormat.rError(message.serverError))
         } else {
-            res.send(resFormat.rSuccess(user))
+            res.send(resFormat.rSuccess({ message: message.userUpdated, user: user }))
         }
     } catch (error) {
         console.log("*******error******", error)
-        res.send(resFormat.rSuccess({ message: message.userUpdated, user: user }))
+        res.send(resFormat.rError(message.serverError))
+
+    }
+}
+
+exports.signup = async (req, res) => {
+    try {
+        const { firstName, lastName, email, phone, password, companyName } = req.body
+        if (firstName == '' || email == '' || phone == '') {
+            res.send(resFormat.rError(message.requiredField))
+        } else {
+            let userObj = await User.findOne({ $or: [{ email: email }, { phone: phone }] });
+            if (userObj == null) {
+                let user = new User();
+                user.firstName = firstName
+                user.lastName = lastName
+                user.email = email
+                user.phone = phone
+                user.hash = await bcrypt.hash(password, 10);
+                user.companyName = companyName
+                user.save(req.body)
+                res.send(resFormat.rSuccess({ message: message.userCreated, user: user }))
+            } else {
+                let error = message.phoneNumber.duplicate
+                if (email == userObj.email) {
+                    error = message.email.duplicate
+                }
+                res.send(resFormat.rError(error))
+            }
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
+
+exports.isExit = async (req, res) => {
+    try {
+        const { type, value } = req.body;
+        let query = { "phone": value }
+        let error = message.phoneNumber.duplicate
+        if (type == 'email') {
+            query = { "email": value }
+            error = message.email.duplicate
+        }
+        let user = await User.findOne(query, { firstName: 1 });
+        if (!user) {
+            res.send(resFormat.rSuccess())
+        } else {
+            res.send(resFormat.rError(error))
+        }
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
+    }
+}
+
+exports.delete = async (req, res) => {
+    try {
+        await User.deleteOne({ _id: req.body.id });
+        res.send(resFormat.rSuccess({ message: message.userDeleted }))
+    } catch (error) {
+        console.log("*******error******", error)
+        res.status(401).send(resFormat.rError({ message: message.serverError }))
     }
 }
