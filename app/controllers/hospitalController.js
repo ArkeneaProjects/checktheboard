@@ -36,4 +36,39 @@ exports.updateHospitalDetails = async (req, res) => {
   }
 }
 
+// Get hospital details for edit
+exports.getHospitalDetails = async (req, res) => {
+  try{
+    const { query, fields } = req.body;
+    let hospital = await Hospital.findOne(query, fields);
+    if(hospital){
+      var userDetails = await User.findOne({_id: hospital.userId}, fields);
+    }
+    res.send(resFormat.rSuccess({userDetails:userDetails, hospital: hospital}))
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+};
+
+//
+// Get all hospital list
+exports.getAllHopitals = async (req, res) => {
+  try{
+    const { query, fields, order, offset, limit } = req.body;
+    let hospitals = await User.find(query, fields)
+      .populate('userId', { firstName: 1, lastName: 1, email: 1, status: 1, city: 1, state: 1, zipcode: 1 })
+      .collation({ 'locale': 'en' })
+      .sort(order).skip(offset).limit(limit)
+    let totalCount = await User.find(query).count()
+
+    res.send(resFormat.rSuccess({ hospitals: hospitals, totalCount}))
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+};
+
+
+
 

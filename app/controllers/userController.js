@@ -47,12 +47,58 @@ exports.createUser = async (req, res) => {
     const newUser = new User(req.body);
     const user = await newUser.save();
 
+    // if(user.userType == "hospitalAdmin"){
+    //   let template = emailTemplates.findOne({code:'inviteHospitalAdmin'})
+    //   if (template) {
+    //     let params = {
+    //       "{firstName}": user.firstName,
+    //       "{link}": process.env.CLIENT_URL+'/'+user._id
+    //     }
+    //     var mailOptions = {
+    //       to: [user.email],
+    //       subject: template.mail_subject,
+    //       html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+    //     }
+    //     sendEmailServices.sendEmail(mailOptions)
+    //   }
+    // }
+
     res.send(resFormat.rSuccess({ userDetails: user,message: message.createUser }))
   } catch (error) {
     console.log("*******error******", error)
     res.status(500).json({ message: message.error });
   }
 };
+
+// Resend invitation to hospital admin
+exports.resendInvitation = async (req, res) => {
+  try{
+    let { query, fields } = req.body
+
+    const user = await User.findOne(query, fields)
+
+    // if(user.userType == "hospitalAdmin"){
+    //   let template = emailTemplates.findOne({code:'inviteHospitalAdmin'})
+    //   if (template) {
+    //     let params = {
+    //       "{firstName}": user.firstName,
+    //       "{link}": process.env.CLIENT_URL+'/'+user._id
+    //     }
+    //     var mailOptions = {
+    //       to: [user.email],
+    //       subject: template.mail_subject,
+    //       html: sendEmailServices.generateContentFromTemplate(template.mail_body, params)
+    //     }
+    //     sendEmailServices.sendEmail(mailOptions)
+    //   }
+    // }
+
+    res.send(resFormat.rSuccess({message: message.inviteUser}))
+  } catch (error){
+    console.log("*******error******", error)
+    res.status(500).json({ message: message.error});
+  }
+}
 
 // Update a particular user details
 exports.updateUserDetails = async (req, res) => {

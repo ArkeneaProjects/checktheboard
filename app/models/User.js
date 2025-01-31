@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "Pending" //'Accepted', 'Rejected','Pending'
   },
+  signupStatus: {
+    type: String,
+    default: "Pending" //'Completed','Pending','Disable'
+  },
   hash: String,
   token: String,
   resetToken: String,

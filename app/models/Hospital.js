@@ -47,7 +47,7 @@ const hospitalSchema = new mongoose.Schema({
     default: Date.now
   },
 }, {
-  collection: 'hospital'
+  collection: 'hospitals'
 });
 
 module.exports = mongoose.model('hospital', hospitalSchema);
